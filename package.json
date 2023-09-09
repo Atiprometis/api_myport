@@ -1,0 +1,19 @@
+{
+  "name": "expree_vuemyport",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "expree": "^2.1.0",
+    "mysql2": "^3.6.0",
+    "nodemon": "^3.0.1"
+  }
+}
