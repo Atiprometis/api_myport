@@ -162,31 +162,32 @@ app.get("/readexp", async(req, res)=>{
 })
 
 // get skills 
-app.get("/getskills", async(req, res)=>{
-
-  try{
+app.get("/getskills/:idUser", async (req, res) => {
+  const id = req.params.idUser;
+  try {
     connection.query(
-      `SELECT skill_name
-FROM user_skills 
-INNER JOIN users
-ON user_skills.id_user = users.id
-INNER JOIN skills
-ON user_skills.id_skills = skills.id_skills
-WHERE id = ?`,[1],
-(err, results, fields)=>{
-      if(err){
-        console.log(err);
-        return res.status(400).send();
+      `SELECT DISTINCT skills.skill_name 
+      FROM user_skills 
+      INNER JOIN users ON user_skills.id_user = users.id 
+      INNER JOIN skills ON user_skills.id_skills = skills.id_skills 
+      WHERE users.id = ?`, // ใช้คอลัมน์ที่ถูกต้อง
+      [id], // ค่าที่จะถูกแทนที่ใน placeholder
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).send({ error: 'Error retrieving skills' });
+        }
+        if (results.length === 0) {
+          return res.status(404).send({ message: 'No skills found for this user' });
+        }
+        res.status(200).json(results);
       }
-      res.status(200).json(results);
-    }
-    )
-      }catch(err){
-        console.log(err);
-        return res.status(500).send();
-      }
-  
-})
+    );
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: 'Server error' });
+  }
+});
 
 // read education
 
