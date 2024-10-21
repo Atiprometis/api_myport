@@ -161,6 +161,33 @@ app.get("/readexp", async(req, res)=>{
   
 })
 
+// get skills 
+app.get("/getskills", async(req, res)=>{
+
+  try{
+    connection.query(
+      `SELECT skill_name
+FROM user_skills 
+INNER JOIN users
+ON user_skills.id_user = users.id
+INNER JOIN skills
+ON user_skills.id_skills = skills.id_skills
+WHERE id = ?`,[1],
+(err, results, fields)=>{
+      if(err){
+        console.log(err);
+        return res.status(400).send();
+      }
+      res.status(200).json(results);
+    }
+    )
+      }catch(err){
+        console.log(err);
+        return res.status(500).send();
+      }
+  
+})
+
 // read education
 
 app.get("/readeducation", async(req, res)=>{
