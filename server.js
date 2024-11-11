@@ -3,29 +3,7 @@ const app = require('./app')
 const port = 3000;
 const multer = require('multer');
 const connection = require('./models/database')
-// insert edu 
 
-// app.post("/insert/edu", async (req, res) => {
-
-//   const { edu_name, edu_content } = req.body;
-
-//   try{
-//     connection.query("INSERT INTO education (edu_name, edu_content ) VALUES (?,?) ",
-//       [edu_name, edu_content], (err,results) => {
-//         if(err){
-//           console.log("err insert",err)
-//           return res.status(400).send();
-//         }
-
-//         return res.status(201).json({message: "new edu created"});
-
-//       })
-
-//   }catch(err){
-//     console.log(err);
-//     return res.status(500).send();
-//   }
-// })
 
 
 // post data
@@ -165,27 +143,6 @@ app.get("/getskills/:idUser", async (req, res) => {
     return res.status(500).send({ error: 'Server error' });
   }
 });
-
-// read education
-
-app.get("/readeducation", async(req, res)=>{
-
-  try{
-    connection.query(
-      "SELECT * FROM education ORDER BY id_edu DESC",(err, results, fields)=>{
-      if(err){
-        console.log(err);
-        return res.status(400).send();
-      }
-      res.status(200).json(results);
-    }
-    )
-      }catch(err){
-        console.log(err);
-        return res.status(500).send();
-      }
-  
-})
 
 // read single result
 app.get("/read/single/:id", async (req, res) => {

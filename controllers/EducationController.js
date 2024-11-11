@@ -8,22 +8,17 @@ exports.insertEducation = async(req,res) => {
     } catch (err) {
         console.log(err);
         res.status(500).send('Error adding education');
+        
     }
 };
 
-// const EducationController ={
-//     insertEducation: (req, res) => {
-//         const { edu_name, edu_content } = req.body;
+exports.ReadEducation = async(req, res) => {
 
-//         EducationModel.insertEducation(edu_name, edu_content, (err,results) =>{
-//             if (err) {
-//                 console.log("Error inserting education:", err);
-//                 return res.status(400).send();
-//               }
-//               return res.status(201).json({ message: "New education created" });
-//         });
-
-//     }
-// }
-
-// module.exports = EducationController;
+    try{
+         const results = await EducationModel.ReadEducation();
+         res.status(200).json(results);
+    }catch(err){
+        console.log(err);
+        return res.status(500).send();
+    }
+}
