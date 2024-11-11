@@ -1,33 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 3000
-var cors = require('cors')
-const path = require('path');
-const mysql2 = require('mysql2')
-const fs = require('fs');
+
+const app = require('./app')
+const port = 3000;
 const multer = require('multer');
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({
-  extended: true
-}))
-
-const connection = mysql2.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'restapi',
-});
-
-connection.connect((err)=>{
-  if(err) {
-    console.log('err connecting', err);
-    return;
-  }
-  console.log('mysql connection');
-})
-// === create table ===
+const connection = require('./models/database')
 
 
 // post data
