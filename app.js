@@ -7,15 +7,20 @@ const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 
-// === create table ===
+const educationRoutes = require('./routes/educationRoutes');
+
+
+
 
 
 app.use(cors())
 app.use(express.json())
+
 app.use(express.urlencoded({
   extended: true
 }))
 
+app.use('/api', educationRoutes);
 
 
   module.exports = app;
