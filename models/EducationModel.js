@@ -34,8 +34,17 @@ const EducationModel = {
             throw err; 
         }
     },
-} 
-
-
+    DeleteEducation: async (eduID) =>{
+        const sql = "DELETE FROM education WHERE id_edu = ?";
+        try{
+            const [results] = await connection.promise().query(sql,[eduID]);
+            return results;
+        }catch(err){
+            console.log(err);
+            return res.status(500).send();
+        }
+    }
+    
+}
 
 module.exports = EducationModel;

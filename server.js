@@ -240,40 +240,40 @@ app.patch("/update/exp", async (req, res ) => {
 
   //update edu
 
-app.patch("/update/edu", async (req, res ) => {
+// app.patch("/update/edu", async (req, res ) => {
 
-  console.log(req.body);
-  console.log(req.body.id_edu);
-  console.log(req.body.edu_name);
-  console.log(req.body.edu_content);
+//   console.log(req.body);
+//   console.log(req.body.id_edu);
+//   console.log(req.body.edu_name);
+//   console.log(req.body.edu_content);
   
-    const id_edu = req.body.id_edu;
-    const edu_name = req.body.edu_name;
-    const edu_content = req.body.edu_content;
+//     const id_edu = req.body.id_edu;
+//     const edu_name = req.body.edu_name;
+//     const edu_content = req.body.edu_content;
     
-    // res.send(`test update =  ${content} + id = ${id} `);
+//     // res.send(`test update =  ${content} + id = ${id} `);
   
-    try{
-      connection.query(
-        `UPDATE education SET edu_name = ?, edu_content = ? WHERE id_edu = ?`,[edu_name,edu_content,id_edu], (err, results, fields) => {
-          if(err){
-            console.log(err);
-            return res.status(400).send();
-          } 
-          res.status(200).json({message: "user new data successfully"});
-        },{
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }
-      )
+//     try{
+//       connection.query(
+//         `UPDATE education SET edu_name = ?, edu_content = ? WHERE id_edu = ?`,[edu_name,edu_content,id_edu], (err, results, fields) => {
+//           if(err){
+//             console.log(err);
+//             return res.status(400).send();
+//           } 
+//           res.status(200).json({message: "user new data successfully"});
+//         },{
+//           headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded'
+//           }
+//         }
+//       )
   
-    }catch(err){
-      console.log(err);
-      return res.status(500).send();
-    }
+//     }catch(err){
+//       console.log(err);
+//       return res.status(500).send();
+//     }
   
-  })
+//   })
 
 
 // delete  exp
@@ -302,29 +302,30 @@ app.delete("/delete/exp/:expID", async (req, res) =>{
 })
 
 // delete  edu
-app.delete("/delete/edu/:eduID", async (req, res) =>{
-  const eduID = req.params.eduID;
 
-  try{
-    connection.query(
-      "DELETE FROM education WHERE id_edu = ?",[eduID], (err, results, fields) => {
-        if(err){
-          console.log(err);
-          return res.status(400).send();
-        } 
-        if(results.affectedRows === 0){
-          return res.status(404).json({message: " No user with this"});
-        }
-        return  res.status(200).json({message: " user deleted successfully"});
-      }
-    )
+// app.delete("/delete/edu/:eduID", async (req, res) =>{
+//   const eduID = req.params.eduID;
 
-  }catch(err){
-    console.log(err);
-    return res.status(500).send();
-  }
+//   try{
+//     connection.query(
+//       "DELETE FROM education WHERE id_edu = ?",[eduID], (err, results, fields) => {
+//         if(err){
+//           console.log(err);
+//           return res.status(400).send();
+//         } 
+//         if(results.affectedRows === 0){
+//           return res.status(404).json({message: " No user with this"});
+//         }
+//         return  res.status(200).json({message: " user deleted successfully"});
+//       }
+//     )
 
-})
+//   }catch(err){
+//     console.log(err);
+//     return res.status(500).send();
+//   }
+
+// })
 
 // เทสๆ 
 

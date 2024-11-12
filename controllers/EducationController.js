@@ -40,4 +40,18 @@ exports.PatchEducation = async(req,res) =>{
         console.log(err);
         return res.status(500).json({ message: "Internal Server Error", error: err.message });
     }
+},
+
+exports.DeleteEducation = async(req,res) =>{ 
+    const eduID = req.params.eduID;
+    try{
+        const results = await EducationModel.DeleteEducation(eduID);
+        if(results.affectedRows === 0){
+            return res.status(404).json({message: " No user with this"});
+          }
+          return res.status(200).json({ message: "Education data deleted successfully" });
+    }catch(err){
+        console.log(err);
+      return res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
 }
