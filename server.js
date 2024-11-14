@@ -28,33 +28,6 @@ app.post("/create", async (req, res)=>{
   } 
 })
 
-// insert exp 
-app.post("/insert/exp", async (req, res) => {
-
-  const { projectname, content, location } = req.body;
-
-  try{
-    connection.query("INSERT INTO exp (projectname, content, location ) VALUES (?,?,?) ",
-      [projectname, content, location], (err,results) => {
-        if(err){
-          console.log("err insert",err)
-          return res.status(400).send();
-        }
-
-        return res.status(201).json({message: "new exp created"});
-
-      })
-
-  }catch(err){
-    console.log(err);
-    return res.status(500).send();
-  }
-})
-
-
-
-
-
 // read data
 
 app.get("/read", async (req, res) => {
@@ -95,26 +68,6 @@ app.get("/readaboutme", async(req, res)=>{
   
 })
 
-// read exp
-
-app.get("/readexp", async(req, res)=>{
-
-  try{
-    connection.query(
-      "SELECT * FROM exp ORDER BY id_exp DESC",(err, results, fields)=>{
-      if(err){
-        console.log(err);
-        return res.status(400).send();
-      }
-      res.status(200).json(results);
-    }
-    )
-      }catch(err){
-        console.log(err);
-        return res.status(500).send();
-      }
-  
-})
 
 // get skills 
 app.get("/getskills/:idUser", async (req, res) => {
@@ -201,131 +154,8 @@ console.log(req.body.content);
 
 })
 
-//update exp
-
-app.patch("/update/exp", async (req, res ) => {
-
-  console.log(req.body);
-  console.log(req.body.id);
-  console.log(req.body.content);
-  
-    const id_exp = req.body.id_exp;
-    const projectname = req.body.projectname;
-    const content = req.body.content;
-    const location = req.body.location;
-    
-    // res.send(`test update =  ${content} + id = ${id} `);
-  
-    try{
-      connection.query(
-        `UPDATE exp SET projectname = ?, content = ?, location = ? WHERE id_exp = ?`,[projectname,content,location,id_exp], (err, results, fields) => {
-          if(err){
-            console.log(err);
-            return res.status(400).send();
-          } 
-          res.status(200).json({message: "user new data successfully"});
-        },{
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }
-      )
-  
-    }catch(err){
-      console.log(err);
-      return res.status(500).send();
-    }
-  
-  })
-
-  //update edu
-
-// app.patch("/update/edu", async (req, res ) => {
-
-//   console.log(req.body);
-//   console.log(req.body.id_edu);
-//   console.log(req.body.edu_name);
-//   console.log(req.body.edu_content);
-  
-//     const id_edu = req.body.id_edu;
-//     const edu_name = req.body.edu_name;
-//     const edu_content = req.body.edu_content;
-    
-//     // res.send(`test update =  ${content} + id = ${id} `);
-  
-//     try{
-//       connection.query(
-//         `UPDATE education SET edu_name = ?, edu_content = ? WHERE id_edu = ?`,[edu_name,edu_content,id_edu], (err, results, fields) => {
-//           if(err){
-//             console.log(err);
-//             return res.status(400).send();
-//           } 
-//           res.status(200).json({message: "user new data successfully"});
-//         },{
-//           headers: {
-//             'Content-Type': 'application/x-www-form-urlencoded'
-//           }
-//         }
-//       )
-  
-//     }catch(err){
-//       console.log(err);
-//       return res.status(500).send();
-//     }
-  
-//   })
 
 
-// delete  exp
-app.delete("/delete/exp/:expID", async (req, res) =>{
-  const expID = req.params.expID;
-
-  try{
-    connection.query(
-      "DELETE FROM exp WHERE id_exp = ?",[expID], (err, results, fields) => {
-        if(err){
-          console.log(err);
-          return res.status(400).send();
-        } 
-        if(results.affectedRows === 0){
-          return res.status(404).json({message: " No user with this"});
-        }
-        return  res.status(200).json({message: " user deleted successfully"});
-      }
-    )
-
-  }catch(err){
-    console.log(err);
-    return res.status(500).send();
-  }
-
-})
-
-// delete  edu
-
-// app.delete("/delete/edu/:eduID", async (req, res) =>{
-//   const eduID = req.params.eduID;
-
-//   try{
-//     connection.query(
-//       "DELETE FROM education WHERE id_edu = ?",[eduID], (err, results, fields) => {
-//         if(err){
-//           console.log(err);
-//           return res.status(400).send();
-//         } 
-//         if(results.affectedRows === 0){
-//           return res.status(404).json({message: " No user with this"});
-//         }
-//         return  res.status(200).json({message: " user deleted successfully"});
-//       }
-//     )
-
-//   }catch(err){
-//     console.log(err);
-//     return res.status(500).send();
-//   }
-
-// })
 
 // เทสๆ 
 
