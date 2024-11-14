@@ -48,27 +48,6 @@ app.get("/read", async (req, res) => {
   }
 })
 
-// red about me
-app.get("/readaboutme", async(req, res)=>{
-
-  try{
-    connection.query(
-      "SELECT * FROM aboutme WHERE id = 2",(err, results, fields)=>{
-      if(err){
-        console.log(err);
-        return res.status(400).send();
-      }
-      res.status(200).json(results);
-    }
-    )
-      }catch(err){
-        console.log(err);
-        return res.status(500).send();
-      }
-  
-})
-
-
 // get skills 
 app.get("/getskills/:idUser", async (req, res) => {
   const id = req.params.idUser;
@@ -116,74 +95,6 @@ app.get("/read/single/:id", async (req, res) => {
     return res.status(500).send();
   }
 })
-
-// update 
-
-
-app.patch("/update/aboutme", async (req, res ) => {
-
-console.log(req.body);
-console.log(req.body.id);
-console.log(req.body.content);
-
-  const id = req.body.id;
-  const content = req.body.content;
-
-  
-  // res.send(`test update =  ${content} + id = ${id} `);
-
-  try{
-    connection.query(
-      `UPDATE aboutme SET id = ?, content = ?`,[id,content], (err, results, fields) => {
-        if(err){
-          console.log(err);
-          return res.status(400).send();
-        } 
-        res.status(200).json({message: "user new data successfully"});
-      },{
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-    )
-
-  }catch(err){
-    console.log(err);
-    return res.status(500).send();
-  }
-
-})
-
-
-
-
-// เทสๆ 
-
-app.get("/test",(req, res)=>{
-  console.log(req.query);
-  const {aa,bb} = req.query;
-  res.send(`madi aa=${aa},${bb}`);
-})
-
-app.get('/update/:updateId',(req,res)=>{
-  console.log(req.params);
-  const { updateId } = req.params;
-  res.send(`posssass= ${updateId}`);
-})
-
-app.get('/testpost/new',(req,res)=>{
-
-  res.send(`post test only`);
-
-})
-app.patch('/testpost/new',(req,res)=>{
-  console.log(req.body);
-  const {tltle}  = req.body;
-  res.send(`บันทึก ${tltle}`);
-})
-
-
-// crete folder 
 
 app.post('/create-folder', (req, res) => {
   const { userId } = req.body; // รับ userId จาก request body
