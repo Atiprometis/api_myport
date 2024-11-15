@@ -10,7 +10,7 @@ const multer = require('multer');
 const educationRoutes = require('./routes/educationRoutes');
 const experienceRouter = require('./routes/experienceRouter');
 const readaboutmeRouter = require('./routes/readaboutmeRouter');
-
+const portfolioRouter = require('./routes/portfolioRouter');
 
 app.use(cors());
 
@@ -20,6 +20,7 @@ app.use(express.json());
 app.use('/api', educationRoutes);
 app.use('/api',experienceRouter);
 app.use('/api',readaboutmeRouter)
+app.use('/api',portfolioRouter)
 
 
   module.exports = app;
