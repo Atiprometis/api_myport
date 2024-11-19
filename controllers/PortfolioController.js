@@ -25,3 +25,14 @@ exports.GetSkills = async(req,res) =>{
         return res.status(500).send({ error: 'Server error' });
     }
 }
+
+exports.CreatePortfolio = async (req, res) => {
+    const {projectname, type, description, pj_role, pj_challenge, pj_link} = req.body;
+    try{
+        const result = await PortfolioModels.CreatePortfolio(projectname, type, description, pj_role, pj_challenge, pj_link);
+        return res.status(200).json(result);
+    }catch(err){
+        console.log(err);
+        return res.status(500).send({ error: 'Server error' });
+    }
+}

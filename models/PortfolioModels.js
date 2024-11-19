@@ -24,6 +24,17 @@ const PortfolioModels = {
             console.log(err);
             return res.status(500).send();
         }
+    },
+    CreatePortfolio: async (projectname, type, description, pj_role, pj_challenge, pj_link) =>{
+
+        const sql =  "INSERT INTO users( projectname, type, description, pj_role, pj_challenge, pj_link) VALUES (?,?,?,?,?,?)";
+        try{
+            const [result] = await connection.promise().query(sql,[projectname, type, description, pj_role, pj_challenge, pj_link])
+            return result;
+        }catch(err){
+            console.log(err);
+            return res.status(500).send();
+        }
     }
 
 }
