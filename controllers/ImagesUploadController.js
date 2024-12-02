@@ -65,3 +65,42 @@ exports.uploadImageToFolder = async(req,res)=>{
   }
 
 }
+
+exports.getImageOne = async(req, res) => {
+   const userId = req.body.userId;
+
+   if (!userId) {
+    return res.status(400).json({ error: 'User ID is required' });
+}
+
+   const imagePath = path.join(__dirname, '..','assets', 'user', String(userId), 'img', 'img_5_1726819793616.jpg'); // เปลี่ยนชื่อไฟล์ตามต้องการ
+  
+   try{
+     res.sendFile(imagePath);
+   }catch(err){
+    console.error(err); // เพื่อดูข้อผิดพลาด
+    return res.status(500).json({ error: 'Failed to send image' });
+   }
+}
+
+exports.getImageAll = async(req, res) => {
+  const userId = req.body.userId;
+
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required' });
+}
+
+const imageDir = path.join(__dirname, '..', 'assets', 'user', String(userId), 'img'); // เส้นทางโฟลเดอร์ภาพ
+
+try{
+  fs.readdir(imageDir);
+  const imageUrls = files.map(file => {
+    return `http://localhost:3000/assets/user/${userId}/img/${file}`; // ปรับให้ตรงกับ URL ของภาพ
+});
+
+res.json({ images: imageUrls });
+}catch(err){
+  console.error(err)
+  return res.status(500).json({ error: 'Unable to access image directory' });
+}
+}
