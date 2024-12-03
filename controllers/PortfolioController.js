@@ -27,9 +27,9 @@ exports.GetSkills = async(req,res) =>{
 }
 
 exports.CreatePortfolio = async (req, res) => {
-    const {projectname, type, description, pj_role, pj_challenge, pj_link} = req.body;
+    const {projectname, type, description, pj_role,skillcontent ,pj_challenge, pj_link} = req.body;
     try{
-        const result = await PortfolioModels.CreatePortfolio(projectname, type, description, pj_role, pj_challenge, pj_link);
+        const result = await PortfolioModels.CreatePortfolio(projectname, type, description, pj_role,skillcontent, pj_challenge, pj_link);
         return res.status(200).json(result);
     }catch(err){
         console.log(err);

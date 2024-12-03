@@ -25,11 +25,11 @@ const PortfolioModels = {
             throw new Error('Database query failed');
         }
     },
-    CreatePortfolio: async (projectname, type, description, pj_role, pj_challenge, pj_link) =>{
+    CreatePortfolio: async (projectname, type, description, pj_role,skillcontent, pj_challenge, pj_link) =>{
 
-        const sql =  "INSERT INTO users( projectname, type, description, pj_role, pj_challenge, pj_link) VALUES (?,?,?,?,?,?)";
+        const sql =  "INSERT INTO users( projectname, type, description, pj_role,skillcontent, pj_challenge, pj_link) VALUES (?,?,?,?,?,?,?)";
         try{
-            const [result] = await connection.promise().query(sql,[projectname, type, description, pj_role, pj_challenge, pj_link])
+            const [result] = await connection.promise().query(sql,[projectname, type, description, pj_role,skillcontent, pj_challenge, pj_link])
             return result;
         }catch(err){
             console.log(err);
