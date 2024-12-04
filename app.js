@@ -1,11 +1,12 @@
-const express = require('express')
-const app = express()
 
 var cors = require('cors')
+const express = require('express')
 const path = require('path');
 
 const fs = require('fs');
 const multer = require('multer');
+const app = express()
+
 
 const educationRoutes = require('./routes/educationRoutes');
 const experienceRouter = require('./routes/experienceRouter');
@@ -23,5 +24,9 @@ app.use('/api',experienceRouter);
 app.use('/api',readaboutmeRouter)
 app.use('/api',portfolioRouter);
 app.use('/api',imagesUploadRouter);
+
+app.use('/assets',express.static(path.join(__dirname, 'assets')));
+
+
 
   module.exports = app;
