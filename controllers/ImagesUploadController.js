@@ -84,33 +84,38 @@ exports.getImageOne = async(req, res) => {
 }
 
 exports.getImageAll = async(req, res) => {
-  const userId = req.body.userId;
+  // const userId = req.body.userId;
+  const userId = req.params.userId;
 
   if (!userId) {
     return res.status(400).json({ error: 'User ID is required' });
 }
 
 const imageDir = path.join(__dirname, '..', 'assets', 'user', String(userId), 'img'); // เส้นทางโฟลเดอร์ภาพ
+const placeholderUrl = 'http://localhost:3000/assets/placeholder/noimages.jpg';
 
 try{
   await fs.access(imageDir);
   const files = await fs.readdir(imageDir);
   if (!files.length) {
-    return res.status(404).json({ error: 'No images found in the directory' });
+    return res.json({ images: [placeholderUrl] });
+
   }
 
   const imageUrls = files.map(file => {
     return `http://localhost:3000/assets/user/${userId}/img/${file}`; // ปรับให้ตรงกับ URL ของภาพ
 });
 
-res.json({ images: imageUrls });
+return res.json({ images: imageUrls });
 
 }catch(err){
   if (err.code === 'ENOENT') {
     // กรณีโฟลเดอร์ไม่พบ
-    return res.status(404).json({ error: 'Image directory not found' });
+    // return res.status(404).json({ error: 'Image directory not found' });
+    return res.json({ images: [placeholderUrl] });
   }
 
   return res.status(500).json({ error: 'Unable to access image directory' });
+  // return res.sendFile(fallbackPath)
 }
 }

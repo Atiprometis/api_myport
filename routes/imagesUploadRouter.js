@@ -24,6 +24,6 @@ const upload = multer({
 router.post('/create-folder',ImagesUploadController.createFolder);
 router.post('/upload-image-to-fodler',upload.single('images'),ImagesUploadController.uploadImageToFolder);
 router.get('/get-image-one',ImagesUploadController.getImageOne);
-router.post('/get-image-all',ImagesUploadController.getImageAll);
+router.post('/get-image-all/:userId',ImagesUploadController.getImageAll);
 
 module.exports = router; 
