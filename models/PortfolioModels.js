@@ -1,3 +1,4 @@
+const { query } = require('express');
 const connection =  require('./database')
 
 const PortfolioModels = {
@@ -73,7 +74,28 @@ const PortfolioModels = {
             console.log(err);
             throw new Error('Database query failed');
         }
-    }
+    },
+    GetskillsAll: async ()=>{
+        const sql ='SELECT `id_skills`,`skill_name` FROM skills';
+        try {
+            const [result] = await connection.promise().query(sql);
+            return result;
+        } catch (err) {
+            console.log(err);
+            throw new Error('Database query failed');
+        }
+    },
+
+    InputSkills: async(id_user,id_skills)=>{
+        const sql = " INSERT INTO user_skills (id_user, id_skills) VALUES (?,?) ";
+        try{
+            const [result] = await connection.promise().query(sql,[id_user,id_skills])
+            return result;
+        }catch(err){
+            console.log(err);
+            throw new Error('Database query failed');
+        }
+    },
 
 }
 

@@ -2,11 +2,17 @@ const express = require('express');
 const router = express.Router();
 const PortfolioController = require('../controllers/PortfolioController');
 
-router.post('/createportfolio', PortfolioController.CreatePortfolio);
+
 router.get('/readdata', PortfolioController.ReadData);
 router.get('/getskills/:idUser', PortfolioController.GetSkills);
-router.delete('/delete/portfolio/:id', PortfolioController.DeletePortfolio);
 router.get('/getdata/portfolio/:id', PortfolioController.GetDataPortfolio)
-router.patch('/edit/portfolio',PortfolioController.EditPortfolio)
+router.get('/getskillall',PortfolioController.GetskillsAll);
+
+router.post('/inputskills', PortfolioController.InputSkills);
+router.post('/createportfolio', PortfolioController.CreatePortfolio);
+
+router.patch('/edit/portfolio',PortfolioController.EditPortfolio);
+
+router.delete('/delete/portfolio/:id', PortfolioController.DeletePortfolio);
 
 module.exports = router;

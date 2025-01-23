@@ -78,3 +78,24 @@ exports.EditPortfolio = async (req, res) =>{
       return res.status(500).send();
     }
 }
+
+exports.GetskillsAll = async(req, res) =>{
+    try {
+        const result = await PortfolioModels.GetskillsAll();
+        res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send();
+    }
+}
+
+exports.InputSkills = async(req, res) =>{
+    const {id_user,id_skills} = req.body;
+    try {
+        const result = await PortfolioModels.InputSkills(id_user,id_skills);
+        res.status(200).json(result);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send();
+    }
+}
