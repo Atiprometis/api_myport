@@ -13,6 +13,7 @@ const experienceRouter = require('./routes/experienceRouter');
 const readaboutmeRouter = require('./routes/readaboutmeRouter');
 const portfolioRouter = require('./routes/portfolioRouter');
 const imagesUploadRouter = require('./routes/imagesUploadRouter');
+const aboutTableRoutes = require('./routes/aboutTableRoutes')
 
 app.use(cors());
 
@@ -24,6 +25,7 @@ app.use('/api',experienceRouter);
 app.use('/api',readaboutmeRouter)
 app.use('/api',portfolioRouter);
 app.use('/api',imagesUploadRouter);
+app.use('/nuxt',aboutTableRoutes)
 
 app.use('/assets',express.static(path.join(__dirname, 'assets')));
 
