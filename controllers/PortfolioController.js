@@ -1,5 +1,8 @@
+const path = require('path');
+const fs = require('fs').promises; 
 const PortfolioModels = require('../models/PortfolioModels');
 
+const ImagesUploadModel = require('../models/ImagesUploadModel');
 
 exports.ReadData = async(req,res) =>{
     try{
@@ -19,6 +22,8 @@ exports.GetSkills = async(req,res) =>{
             // return res.status(404).send({ message: 'No skills found for this user' });
             return res.status(200).json([{ skill_name: "No Skill Found"}]);
           }
+
+
           res.status(200).json(result);
     }catch(err){
         console.log(err);
@@ -27,10 +32,26 @@ exports.GetSkills = async(req,res) =>{
 }
 
 exports.CreatePortfolio = async (req, res) => {
+    // สร้างข้อมูล portfolio ใหม่
     const {projectname, type, description, pj_role,skillcontent ,pj_challenge, pj_link} = req.body;
     try{
         const result = await PortfolioModels.CreatePortfolio(projectname, type, description, pj_role,skillcontent, pj_challenge, pj_link);
-        return res.status(200).json(result);
+       
+
+
+     const userId = result.insertId;
+    // console.log('Inserted ID:', userId);
+
+       const userFolder = path.join(__dirname, '..', 'assets', 'user', String(userId), 'cover');
+        await fs.mkdir(userFolder, { recursive: true });
+
+    const defaultPhoto = path.join(__dirname, '..', 'assets', 'default', 'default_photo.jpg');
+    const newImageName = `default_photo.jpg`;
+    const destPath = path.join(userFolder, newImageName);
+    await fs.copyFile(defaultPhoto, destPath);
+
+    return res.status(200).json(result);
+
     }catch(err){
         console.log(err);
         return res.status(500).send({ error: 'Server error' });

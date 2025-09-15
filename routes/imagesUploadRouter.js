@@ -23,6 +23,7 @@ const upload = multer({
 
 router.post('/create-folder',ImagesUploadController.createFolder);
 router.post('/upload-image-to-fodler',upload.single('images'),ImagesUploadController.uploadImageToFolder);
+router.post('/upload-image-to-fodler-cover',upload.single('images'),ImagesUploadController.uploadImageToFolderCoverImage);
 router.get('/get-image-one',ImagesUploadController.getImageOne);
 router.post('/get-image-all/:userId',ImagesUploadController.getImageAll);
 
